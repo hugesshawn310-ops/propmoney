@@ -1,0 +1,6 @@
+{
+  "name": "AUS PROP CASH",
+  "description": "Australia's premier RBA-compliant realistic AUD prop money store for film, television, music videos, theater, and events.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
