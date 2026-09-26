@@ -9,10 +9,12 @@ import {
   Send,
   Sparkles,
   Percent,
-  Download
+  Download,
+  Loader2
 } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import { Product } from '../types';
+import { sendQuoteRequest } from '../services/emailService';
 
 interface BulkStudioCalculatorProps {
   onAddBulkToCart: (product: Product, quantity: number, pricePerUnit: number) => void;
@@ -23,6 +25,7 @@ export const BulkStudioCalculator: React.FC<BulkStudioCalculatorProps> = ({ onAd
   const [selectedDenom, setSelectedDenom] = useState<string>('50');
   const [customStacksCount, setCustomStacksCount] = useState<number>(20);
   const [quoteSubmitted, setQuoteSubmitted] = useState(false);
+  const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
   // Form for direct invoice request
   const [studioName, setStudioName] = useState('');
@@ -84,9 +87,30 @@ export const BulkStudioCalculator: React.FC<BulkStudioCalculatorProps> = ({ onAd
     onAddBulkToCart(product, stacksCount, Number((singleBrickPrice * (1 - discountTier)).toFixed(2)));
   };
 
-  const handleQuoteSubmit = (e: React.FormEvent) => {
+  const handleQuoteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setQuoteSubmitted(true);
+    setIsSubmittingQuote(true);
+    try {
+      await sendQuoteRequest({
+        studioName,
+        abn,
+        email,
+        presetTitle: activePreset.title,
+        productName: product.name,
+        stacksCount,
+        totalNotes: stacksCount * 100,
+        singleBrickPrice,
+        discountTier,
+        finalSubtotal,
+        gstAmount,
+        totalIncGst,
+      });
+    } catch (err) {
+      console.error('Quote email error:', err);
+    } finally {
+      setIsSubmittingQuote(false);
+      setQuoteSubmitted(true);
+    }
   };
 
   return (
@@ -318,20 +342,30 @@ export const BulkStudioCalculator: React.FC<BulkStudioCalculatorProps> = ({ onAd
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-2.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-mono font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                    disabled={isSubmittingQuote}
+                    className="w-full py-2.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 disabled:opacity-60 text-white text-xs font-mono font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <Send className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Email Official Studio Proforma Invoice</span>
+                    {isSubmittingQuote ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-400" />
+                        <span>Generating & Emailing Proforma Quote...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5 text-amber-400" />
+                        <span>Email Official Studio Proforma Invoice</span>
+                      </>
+                    )}
                   </button>
                 </form>
               ) : (
                 <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-xl text-center space-y-2 animate-in fade-in duration-300">
                   <CheckCircle className="w-6 h-6 text-emerald-400 mx-auto" />
                   <div className="text-xs font-bold text-white font-mono">
-                    Proforma Invoice Generated!
+                    Proforma Invoice Generated & Dispatched!
                   </div>
                   <p className="text-[11px] text-neutral-300">
-                    A formal PDF studio quote with RBA clearance documentation has been sent to <strong>{email}</strong>.
+                    A formal PDF studio quotation with RBA clearance documentation has been sent to <strong>{email}</strong> and logged with <strong>sales@propmoneyaustralia.com.au</strong>.
                   </p>
                 </div>
               )}

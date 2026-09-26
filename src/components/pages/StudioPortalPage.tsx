@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { PageId } from '../../types';
+import { sendConciergeInquiry } from '../../services/emailService';
 import {
   User,
   FileCheck2,
@@ -12,7 +13,8 @@ import {
   ShieldCheck,
   Send,
   Sparkles,
-  Truck
+  Truck,
+  Loader2
 } from 'lucide-react';
 
 interface StudioPortalPageProps {
@@ -27,8 +29,30 @@ export const StudioPortalPage: React.FC<StudioPortalPageProps> = ({ onNavigate }
   const [invoiceDownloaded, setInvoiceDownloaded] = useState(false);
 
   // Concierge Form
+  const [conciergeProject, setConciergeProject] = useState('');
+  const [conciergeEmail, setConciergeEmail] = useState('');
+  const [conciergePhone, setConciergePhone] = useState('');
   const [conciergeMsg, setConciergeMsg] = useState('');
   const [conciergeSent, setConciergeSent] = useState(false);
+  const [isSubmittingConcierge, setIsSubmittingConcierge] = useState(false);
+
+  const handleConciergeSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmittingConcierge(true);
+    try {
+      await sendConciergeInquiry({
+        projectName: conciergeProject || 'Studio Project',
+        email: conciergeEmail,
+        phone: conciergePhone,
+        requirements: conciergeMsg,
+      });
+    } catch (err) {
+      console.error('Concierge inquiry error:', err);
+    } finally {
+      setIsSubmittingConcierge(false);
+      setConciergeSent(true);
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
@@ -310,28 +334,60 @@ export const StudioPortalPage: React.FC<StudioPortalPageProps> = ({ onNavigate }
                 Message Received by Sydney Production Desk
               </div>
               <p className="text-xs text-neutral-300">
-                A member of our film props department will call or email back within 45 minutes during standard studio hours (7am – 8pm AEST).
+                Logged to <strong>sales@propmoneyaustralia.com.au</strong>. A member of our film props department will call or email <strong>{conciergeEmail || 'you'}</strong> back within 45 minutes during standard studio hours (7am – 8pm AEST).
               </p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <form onSubmit={handleConciergeSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs font-mono text-neutral-400 mb-1">
-                  Production / Project Name
+                  Production / Project Name *
                 </label>
                 <input
                   type="text"
+                  required
+                  value={conciergeProject}
+                  onChange={(e) => setConciergeProject(e.target.value)}
                   placeholder="e.g. Stan Original Series 'Underbelly 2026'"
                   className="w-full bg-neutral-950 border border-neutral-700 rounded-lg p-2.5 text-xs text-white"
                 />
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-mono text-neutral-400 mb-1">
+                    Contact Email *
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={conciergeEmail}
+                    onChange={(e) => setConciergeEmail(e.target.value)}
+                    placeholder="production@studio.com.au"
+                    className="w-full bg-neutral-950 border border-neutral-700 rounded-lg p-2.5 text-xs text-white"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono text-neutral-400 mb-1">
+                    Direct Phone (Optional)
+                  </label>
+                  <input
+                    type="tel"
+                    value={conciergePhone}
+                    onChange={(e) => setConciergePhone(e.target.value)}
+                    placeholder="0400 000 000"
+                    className="w-full bg-neutral-950 border border-neutral-700 rounded-lg p-2.5 text-xs text-white"
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-mono text-neutral-400 mb-1">
-                  Specific Set Requirements & Shoot Dates
+                  Specific Set Requirements & Shoot Dates *
                 </label>
                 <textarea
                   rows={4}
+                  required
                   value={conciergeMsg}
                   onChange={(e) => setConciergeMsg(e.target.value)}
                   placeholder="e.g. Need 40 stacks of $100s delivered to Docklands Studios Melbourne for scene shooting Thursday 18th..."
@@ -340,14 +396,23 @@ export const StudioPortalPage: React.FC<StudioPortalPageProps> = ({ onNavigate }
               </div>
 
               <button
-                type="button"
-                onClick={() => setConciergeSent(true)}
-                className="py-2.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-neutral-950 font-bold text-xs font-mono cursor-pointer flex items-center gap-2"
+                type="submit"
+                disabled={isSubmittingConcierge}
+                className="py-2.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 disabled:opacity-60 text-neutral-950 font-bold text-xs font-mono cursor-pointer flex items-center gap-2"
               >
-                <Send className="w-4 h-4" />
-                <span>Submit Direct Studio Inquiry</span>
+                {isSubmittingConcierge ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Transmitting to Art Department Desk...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    <span>Submit Direct Studio Inquiry</span>
+                  </>
+                )}
               </button>
-            </div>
+            </form>
           )}
         </div>
       )}

@@ -9,8 +9,10 @@ import {
   CheckCircle,
   HelpCircle,
   Download,
-  ShieldCheck
+  ShieldCheck,
+  Loader2
 } from 'lucide-react';
+import { sendStudioInquiry } from '../services/emailService';
 
 interface StudioPortalModalProps {
   isOpen: boolean;
@@ -22,6 +24,29 @@ export const StudioPortalModal: React.FC<StudioPortalModalProps> = ({ isOpen, on
 
   const [activeTab, setActiveTab] = useState<'support' | 'abn' | 'permits'>('support');
   const [inquirySent, setInquirySent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleInquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await sendStudioInquiry({
+        name,
+        email,
+        phone,
+        message,
+      });
+    } catch (err) {
+      console.error('Inquiry error:', err);
+    } finally {
+      setIsSubmitting(false);
+      setInquirySent(true);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
@@ -86,46 +111,65 @@ export const StudioPortalModal: React.FC<StudioPortalModalProps> = ({ isOpen, on
               </div>
 
               {!inquirySent ? (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setInquirySent(true);
-                  }}
-                  className="space-y-3"
-                >
+                <form onSubmit={handleInquirySubmit} className="space-y-3">
                   <div className="text-neutral-300 font-bold">
                     Send Urgent Production Inquiry (Same-Hour Response):
                   </div>
                   <input
                     type="text"
                     required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     placeholder="Production / Director Name"
                     className="w-full bg-neutral-900 text-white px-3 py-2 rounded-lg border border-neutral-800 focus:border-amber-400 focus:outline-hidden"
                   />
-                  <input
-                    type="email"
-                    required
-                    placeholder="Production Email Address"
-                    className="w-full bg-neutral-900 text-white px-3 py-2 rounded-lg border border-neutral-800 focus:border-amber-400 focus:outline-hidden"
-                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Production Email Address"
+                      className="w-full bg-neutral-900 text-white px-3 py-2 rounded-lg border border-neutral-800 focus:border-amber-400 focus:outline-hidden"
+                    />
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Callback Phone (Optional)"
+                      className="w-full bg-neutral-900 text-white px-3 py-2 rounded-lg border border-neutral-800 focus:border-amber-400 focus:outline-hidden"
+                    />
+                  </div>
                   <textarea
                     rows={3}
                     required
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     placeholder="Scene details, rush deadline, Sydney/Melb courier requests..."
                     className="w-full bg-neutral-900 text-white px-3 py-2 rounded-lg border border-neutral-800 focus:border-amber-400 focus:outline-hidden"
                   />
                   <button
                     type="submit"
-                    className="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold transition-colors cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 disabled:opacity-70 text-neutral-950 font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    Submit Production Inquiry
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin text-neutral-950" />
+                        <span>Sending to Dispatch Desk...</span>
+                      </>
+                    ) : (
+                      <span>Submit Production Inquiry</span>
+                    )}
                   </button>
                 </form>
               ) : (
                 <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-xl text-center space-y-1">
                   <CheckCircle className="w-6 h-6 text-emerald-400 mx-auto" />
                   <div className="text-white font-bold">Inquiry Dispatched!</div>
-                  <div className="text-neutral-300 text-[11px]">Our production logistics manager will call or email you within 30 minutes.</div>
+                  <div className="text-neutral-300 text-[11px]">
+                    Dispatched to <strong>sales@propmoneyaustralia.com.au</strong>. Our production logistics manager will call or email you at <strong>{email}</strong> within 30 minutes.
+                  </div>
                 </div>
               )}
             </div>

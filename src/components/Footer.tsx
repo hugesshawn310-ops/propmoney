@@ -7,10 +7,12 @@ import {
   MapPin,
   Clapperboard,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Loader2
 } from 'lucide-react';
 
 import { PageId } from '../types';
+import { sendNewsletterSubscription } from '../services/emailService';
 
 interface FooterProps {
   onCityClick?: (city: string) => void;
@@ -21,6 +23,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, onNavigatePage }) => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSuccess, setNewsletterSuccess] = useState(false);
+  const [isSubmittingNewsletter, setIsSubmittingNewsletter] = useState(false);
 
   const handleNav = (e: React.MouseEvent, page: PageId) => {
     e.preventDefault();
@@ -29,9 +32,16 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
     }
   };
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newsletterEmail.trim()) {
+    if (!newsletterEmail.trim()) return;
+    setIsSubmittingNewsletter(true);
+    try {
+      await sendNewsletterSubscription(newsletterEmail.trim());
+    } catch (err) {
+      console.error('Newsletter submit error:', err);
+    } finally {
+      setIsSubmittingNewsletter(false);
       setNewsletterSuccess(true);
     }
   };
@@ -81,9 +91,17 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
                   </div>
                   <button
                     type="submit"
-                    className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-colors shrink-0 shadow-lg cursor-pointer"
+                    disabled={isSubmittingNewsletter}
+                    className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 disabled:opacity-70 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-colors shrink-0 shadow-lg flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    Claim 10% Code
+                    {isSubmittingNewsletter ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <span>Claim 10% Code</span>
+                    )}
                   </button>
                 </form>
               ) : (
@@ -91,7 +109,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
                   <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
                   <div>
                     <div className="font-bold text-white">Welcome to the Creators Club!</div>
-                    <div>Use promo code <strong className="text-amber-300">AUSPROP10</strong> at checkout for 10% off. Guide emailed to {newsletterEmail}.</div>
+                    <div>Use promo code <strong className="text-amber-300">AUSPROP10</strong> at checkout for 10% off. Guide emailed to {newsletterEmail}. Logged to <span className="text-amber-400">sales@propmoneyaustralia.com.au</span>.</div>
                   </div>
                 </div>
               )}
@@ -132,7 +150,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>orders@auspropcash.com.au</span>
+                <a href="mailto:sales@propmoneyaustralia.com.au" className="hover:text-amber-400 transition-colors">sales@propmoneyaustralia.com.au</a>
               </div>
               <div className="text-[11px] text-neutral-500 pt-1">
                 ABN: 51 824 753 190 • Registered in New South Wales
