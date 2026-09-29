@@ -12,6 +12,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { Product, PageId } from '../types';
+import { PAGE_ROUTES } from './Breadcrumbs';
 
 interface NavbarProps {
   cartCount: number;
@@ -59,8 +60,12 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between h-20 gap-4">
           
           {/* Logo & Subtitle */}
-          <div
-            onClick={() => handleNavClick('home')}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('home');
+            }}
             className="flex items-center gap-3 cursor-pointer group shrink-0"
           >
             <div className="w-10 h-10 rounded-lg bg-linear-to-br from-amber-500 to-amber-700 p-0.5 shadow-lg shadow-amber-500/20 group-hover:shadow-amber-500/40 transition-shadow">
@@ -79,17 +84,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Motion Picture Money
               </div>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Nav Links */}
           <div className="hidden lg:flex items-center gap-3.5 xl:gap-5">
             {navLinks.map((link) => {
               const isActive = currentPage === link.id;
+              const href = PAGE_ROUTES[link.id] || `/${link.id}`;
               return (
-                <button
+                <a
                   key={link.id}
-                  type="button"
-                  onClick={() => handleNavClick(link.id)}
+                  href={href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.id);
+                  }}
                   className={`relative text-[11px] xl:text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer py-1.5 border-b-2 flex items-center gap-1 whitespace-nowrap ${
                     isActive
                       ? 'text-amber-400 border-amber-400 font-bold'
@@ -102,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       {link.badge}
                     </span>
                   )}
-                </button>
+                </a>
               );
             })}
           </div>
@@ -231,11 +240,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="grid grid-cols-2 gap-2">
             {navLinks.map((link) => {
               const isActive = currentPage === link.id;
+              const href = PAGE_ROUTES[link.id] || `/${link.id}`;
               return (
-                <button
+                <a
                   key={link.id}
-                  type="button"
-                  onClick={() => handleNavClick(link.id)}
+                  href={href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.id);
+                  }}
                   className={`text-left px-3 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-between border transition-all ${
                     isActive
                       ? 'bg-neutral-800 text-amber-400 border-amber-500/40 font-bold'
@@ -251,7 +264,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     )}
                   </span>
                   <ChevronRight className={`w-3.5 h-3.5 ${isActive ? 'text-amber-400' : 'text-neutral-500'}`} />
-                </button>
+                </a>
               );
             })}
           </div>
@@ -260,16 +273,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="flex items-center gap-1 text-emerald-400 font-mono">
               <ShieldCheck className="w-4 h-4" /> RBA Section 22 Compliant
             </span>
-            <button
-              type="button"
-              onClick={() => {
+            <a
+              href="/studio-portal"
+              onClick={(e) => {
+                e.preventDefault();
                 onOpenAccount();
                 setMobileMenuOpen(false);
               }}
               className="text-amber-400 font-medium hover:underline"
             >
               Studio Tax Invoice Portal
-            </button>
+            </a>
           </div>
         </div>
       )}

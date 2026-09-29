@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 
 import { PageId } from '../types';
+import { PAGE_ROUTES } from './Breadcrumbs';
 import { sendNewsletterSubscription } from '../services/emailService';
 
 interface FooterProps {
@@ -158,18 +159,18 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
             </div>
           </div>
 
-          {/* Col 2: Currency Stacks */}
+          {/* Col 2: Currency Stacks & Categories */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-              AUD Prop Banknotes
+              Prop Banknote Collections
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><button type="button" onClick={(e) => handleNav(e, 'full-stacks')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">$5 AUD Pink Prop Note Stack</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'full-stacks')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">$10 AUD Blue Prop Note Stack</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'full-stacks')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">$20 AUD Red Prop Note Stack</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'full-stacks')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">$50 AUD Yellow Stack (Best Seller)</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'full-stacks')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">$100 AUD Green Stack (Most Realistic)</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'bulk-studio')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Bulk Studio Orders (B2B Tiers)</button></li>
+              <li><a href="/shop/australian-dollar" onClick={(e) => handleNav(e, 'shop')} className="hover:text-amber-400 transition-colors text-left block">Australian Dollars (AUD Stacks)</a></li>
+              <li><a href="/shop/us-dollar" onClick={(e) => handleNav(e, 'shop')} className="hover:text-amber-400 transition-colors text-left block">US Dollars (USD Greenbacks)</a></li>
+              <li><a href="/shop/british-pound" onClick={(e) => handleNav(e, 'shop')} className="hover:text-amber-400 transition-colors text-left block">British Pounds (GBP Series)</a></li>
+              <li><a href="/shop/euro" onClick={(e) => handleNav(e, 'shop')} className="hover:text-amber-400 transition-colors text-left block">Euros (EUR Theatrical Notes)</a></li>
+              <li><a href="/full-stacks" onClick={(e) => handleNav(e, 'full-stacks')} className="hover:text-amber-400 transition-colors text-left block">Full 100-Note Strapped Bricks</a></li>
+              <li><a href="/bulk-studio" onClick={(e) => handleNav(e, 'bulk-studio')} className="hover:text-amber-400 transition-colors text-left block">Bulk Studio Orders (B2B Tiers)</a></li>
             </ul>
           </div>
 
@@ -181,8 +182,8 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
             <ul className="space-y-2.5 text-xs">
               {cities.map((c) => (
                 <li key={c.slug}>
-                  <button
-                    type="button"
+                  <a
+                    href="/"
                     onClick={(e) => {
                       if (onCityClick) onCityClick(c.name);
                       handleNav(e, 'home');
@@ -195,7 +196,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
                     <span className="block text-[10px] text-neutral-400">
                       {c.desc}
                     </span>
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -204,21 +205,22 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
           {/* Col 4: Legal & Studio Support */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-              Studio & Legal
+              Studio &amp; Legal
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><button type="button" onClick={(e) => handleNav(e, 'about')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">About Us</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'contact')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Contact Us</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'terms')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Terms & Conditions</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'privacy')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Privacy Policy</button></li>
+              <li><a href="/about" onClick={(e) => handleNav(e, 'about')} className="hover:text-amber-400 transition-colors text-left block">About Us</a></li>
+              <li><a href="/contact" onClick={(e) => handleNav(e, 'contact')} className="hover:text-amber-400 transition-colors text-left block">Contact Us</a></li>
+              <li><a href="/faq" onClick={(e) => handleNav(e, 'rba-guidelines')} className="hover:text-amber-400 transition-colors text-left block">Frequently Asked Questions (FAQ)</a></li>
+              <li><a href="/blog" onClick={(e) => handleNav(e, 'blog')} className="hover:text-amber-400 transition-colors text-left block">Cinematography &amp; Prop Guides</a></li>
+              <li><a href="/terms" onClick={(e) => handleNav(e, 'terms')} className="hover:text-amber-400 transition-colors text-left block">Terms &amp; Conditions</a></li>
+              <li><a href="/privacy" onClick={(e) => handleNav(e, 'privacy')} className="hover:text-amber-400 transition-colors text-left block">Privacy Policy</a></li>
               <li>
-                <button type="button" onClick={(e) => handleNav(e, 'rba-guidelines')} className="hover:text-amber-400 transition-colors flex items-center gap-1 text-emerald-400 font-medium cursor-pointer text-left">
+                <a href="/rba-guidelines" onClick={(e) => handleNav(e, 'rba-guidelines')} className="hover:text-amber-400 transition-colors flex items-center gap-1 text-emerald-400 font-medium text-left">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>RBA Legal Guidelines</span>
-                </button>
+                </a>
               </li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'bulk-studio')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Bulk Studio Orders & ABN Quotes</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'studio-portal')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">StarTrack Express Tracking</button></li>
+              <li><a href="/studio-portal" onClick={(e) => handleNav(e, 'studio-portal')} className="hover:text-amber-400 transition-colors text-left block">StarTrack Express Tracking</a></li>
             </ul>
           </div>
 
@@ -229,7 +231,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
           <div className="p-4 rounded-xl bg-neutral-900 border border-neutral-800 text-[11px] leading-relaxed text-neutral-400">
             <div className="flex items-center gap-1.5 text-amber-400 font-mono font-bold uppercase mb-1">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Full RBA Legal Compliance Statement & Disclaimer</span>
+              <span>Full RBA Legal Compliance Statement &amp; Disclaimer</span>
             </div>
             <p>
               AUS PROP CASH products are designed, manufactured, and sold strictly for motion picture, television production, theatrical performance, photography, media education, and legitimate artistic entertainment use. All replica Australian currency items strictly adhere to the guidelines set out by the <strong>Reserve Bank of Australia (RBA)</strong> and the <strong>Crimes (Currency) Act 1981 (Commonwealth of Australia) Section 22</strong>. Our bills bear permanent and prominent <em>"FOR MOTION PICTURE USE ONLY"</em> and <em>"PROP SPECIMEN - NOT LEGAL TENDER"</em> indicators on both front and back, incorporate deliberate dimensional alterations, lack intaglio raised ink, and feature non-reflective synthetic linen paper that will not function in vending machines, cash dispensers, or automated deposit terminals. Attempting to use, pass, or circulate prop money as genuine Australian legal tender is a serious criminal offence under Australian law.
@@ -242,13 +244,15 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
           <div className="text-[11px] font-mono text-neutral-400 text-center md:text-left flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1">
             <span>© {new Date().getFullYear()} AUS PROP CASH Pty Ltd.</span>
             <span>•</span>
-            <button type="button" onClick={(e) => handleNav(e, 'about')} className="hover:text-amber-400 transition-colors cursor-pointer">About</button>
+            <a href="/about" onClick={(e) => handleNav(e, 'about')} className="hover:text-amber-400 transition-colors">About</a>
             <span>•</span>
-            <button type="button" onClick={(e) => handleNav(e, 'terms')} className="hover:text-amber-400 transition-colors cursor-pointer">Terms</button>
+            <a href="/terms" onClick={(e) => handleNav(e, 'terms')} className="hover:text-amber-400 transition-colors">Terms</a>
             <span>•</span>
-            <button type="button" onClick={(e) => handleNav(e, 'privacy')} className="hover:text-amber-400 transition-colors cursor-pointer">Privacy</button>
+            <a href="/privacy" onClick={(e) => handleNav(e, 'privacy')} className="hover:text-amber-400 transition-colors">Privacy</a>
             <span>•</span>
-            <button type="button" onClick={(e) => handleNav(e, 'contact')} className="hover:text-amber-400 transition-colors cursor-pointer">Contact Us</button>
+            <a href="/contact" onClick={(e) => handleNav(e, 'contact')} className="hover:text-amber-400 transition-colors">Contact Us</a>
+            <span>•</span>
+            <a href="/sitemap.xml" className="hover:text-amber-400 transition-colors">Sitemap</a>
           </div>
 
           {/* Payment Method Badges as required in prompt */}

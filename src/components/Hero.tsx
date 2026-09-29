@@ -212,29 +212,39 @@ export const Hero: React.FC<HeroProps> = ({
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
-            <button
-              type="button"
-              onClick={onShopClick}
+            <a
+              href="/shop"
+              onClick={(e) => {
+                e.preventDefault();
+                onShopClick();
+              }}
               className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-neutral-950 font-black text-sm sm:text-base px-7 py-4 rounded-xl shadow-xl shadow-amber-500/25 hover:shadow-amber-500/35 transition-all cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
             >
               <span>Shop AUD Currency Stacks</span>
               <ArrowRight className="w-5 h-5 text-neutral-950 stroke-[2.5]" />
-            </button>
+            </a>
 
-            <button
-              type="button"
-              onClick={onBulkClick}
+            <a
+              href="/bulk-studio"
+              onClick={(e) => {
+                e.preventDefault();
+                onBulkClick();
+              }}
               className="inline-flex items-center justify-center gap-2 bg-neutral-950/90 hover:bg-neutral-900 text-neutral-100 border border-neutral-700 hover:border-amber-400 font-bold text-sm sm:text-base px-6 py-4 rounded-xl backdrop-blur-md transition-all cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-amber-400" />
               <span>Bulk Studio Orders</span>
-            </button>
+            </a>
           </div>
 
           {/* Trust Badges Bar */}
           <div className="pt-5 border-t border-neutral-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div
-              onClick={onOpenCompliance}
+            <a
+              href="/rba-guidelines"
+              onClick={(e) => {
+                e.preventDefault();
+                onOpenCompliance();
+              }}
               className="p-3 rounded-xl bg-neutral-950/80 border border-neutral-800/90 hover:border-amber-500/40 backdrop-blur-md transition-all cursor-pointer flex items-start gap-2.5"
             >
               <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
@@ -246,7 +256,7 @@ export const Hero: React.FC<HeroProps> = ({
                   Crimes Act 1981 Sec. 22
                 </div>
               </div>
-            </div>
+            </a>
 
             <div className="p-3 rounded-xl bg-neutral-950/80 border border-neutral-800/90 backdrop-blur-md flex items-start gap-2.5">
               <Camera className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />

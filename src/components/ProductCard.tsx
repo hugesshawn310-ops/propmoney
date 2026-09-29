@@ -74,17 +74,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Visual Banknote Representation / Scraped Product Image */}
       <div className="px-4 py-3 relative">
-        <div
-          onClick={() => onQuickView(product)}
-          className="cursor-pointer group-hover:scale-[1.02] transition-transform duration-300 relative rounded-xl overflow-hidden"
+        <a
+          href={`/product/${product.slug}`}
+          onClick={(e) => {
+            e.preventDefault();
+            onQuickView(product);
+          }}
+          className="block cursor-pointer group-hover:scale-[1.02] transition-transform duration-300 relative rounded-xl overflow-hidden"
+          aria-label={`View 4K details for ${product.name}`}
         >
           {product.image ? (
             <div className="relative aspect-16/10 rounded-xl overflow-hidden bg-neutral-950 border border-neutral-800 flex items-center justify-center">
               <img
                 src={product.image}
-                alt={product.name}
+                alt={`${product.name} - 4K Film Prop Specimen`}
                 referrerPolicy="no-referrer"
                 loading="lazy"
+                width="320"
+                height="200"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent pointer-events-none" />
@@ -107,7 +114,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span>Inspect 4K Details</span>
             </span>
           </div>
-        </div>
+        </a>
       </div>
 
       {/* Product Information Body */}
@@ -143,11 +150,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Product Title */}
         <div>
-          <h3
-            onClick={() => onQuickView(product)}
-            className="text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition-colors cursor-pointer leading-snug"
-          >
-            {product.name}
+          <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition-colors leading-snug">
+            <a
+              href={`/product/${product.slug}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onQuickView(product);
+              }}
+            >
+              {product.name}
+            </a>
           </h3>
           
           {/* SEO Short Description */}

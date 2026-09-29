@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { PRODUCTS } from './data/products';
 import { Product, CartItem, StackSize, PageId } from './types';
 import { AnnouncementBar } from './components/AnnouncementBar';
@@ -18,6 +18,9 @@ import { AboutPage } from './components/pages/AboutPage';
 import { TermsPage } from './components/pages/TermsPage';
 import { PrivacyPolicyPage } from './components/pages/PrivacyPolicyPage';
 import { ContactPage } from './components/pages/ContactPage';
+import { ProductDetailPage } from './components/pages/ProductDetailPage';
+import { BlogPage } from './components/pages/BlogPage';
+import { PAGE_ROUTES } from './components/Breadcrumbs';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function App() {
@@ -36,6 +39,9 @@ export default function App() {
 
   // Page Routing State: each header menu leads to its own dedicated page
   const [currentPage, setCurrentPage] = useState<PageId>('home');
+  const [activeProductSlug, setActiveProductSlug] = useState<string>('');
+  const [activeBlogSlug, setActiveBlogSlug] = useState<string>('');
+  const [activeCategory, setActiveCategory] = useState<string>('');
 
   // UI Modal States
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -47,6 +53,51 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currency, setCurrency] = useState<string>('AUD');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // URL Path to State Resolver
+  const resolvePathToState = (pathname: string) => {
+    const clean = pathname.split('?')[0].replace(/\/+$/, '') || '/';
+    if (clean === '/') return { page: 'home' as PageId };
+    if (clean === '/shop') return { page: 'shop' as PageId };
+    if (clean.startsWith('/shop/')) {
+      const cat = clean.replace('/shop/', '');
+      return { page: 'shop' as PageId, category: cat };
+    }
+    if (clean.startsWith('/product/')) {
+      const pSlug = clean.replace('/product/', '');
+      return { page: 'product' as PageId, productSlug: pSlug };
+    }
+    if (clean === '/blog') return { page: 'blog' as PageId };
+    if (clean.startsWith('/blog/')) {
+      const bSlug = clean.replace('/blog/', '');
+      return { page: 'blog' as PageId, blogSlug: bSlug };
+    }
+    if (clean === '/faq') return { page: 'rba-guidelines' as PageId };
+    if (clean === '/about') return { page: 'about' as PageId };
+    if (clean === '/terms') return { page: 'terms' as PageId };
+    if (clean === '/privacy') return { page: 'privacy' as PageId };
+    if (clean === '/contact') return { page: 'contact' as PageId };
+    if (clean === '/full-stacks') return { page: 'full-stacks' as PageId };
+    if (clean === '/rba-guidelines') return { page: 'rba-guidelines' as PageId };
+    if (clean === '/bulk-studio') return { page: 'bulk-studio' as PageId };
+    if (clean === '/studio-portal') return { page: 'studio-portal' as PageId };
+    return { page: 'home' as PageId };
+  };
+
+  // Sync client state with browser URL & history
+  useEffect(() => {
+    const syncWithLocation = () => {
+      const parsed = resolvePathToState(window.location.pathname);
+      setCurrentPage(parsed.page);
+      if (parsed.productSlug) setActiveProductSlug(parsed.productSlug);
+      if (parsed.blogSlug) setActiveBlogSlug(parsed.blogSlug);
+      if (parsed.category) setActiveCategory(parsed.category);
+    };
+
+    syncWithLocation();
+    window.addEventListener('popstate', syncWithLocation);
+    return () => window.removeEventListener('popstate', syncWithLocation);
+  }, []);
 
   // Toast helper
   const showToast = (msg: string) => {
@@ -69,11 +120,35 @@ export default function App() {
     });
   }, [searchQuery]);
 
-  // Page Navigation Handler
-  const handleNavigatePage = (page: PageId) => {
+  // Page Navigation Handler with clean URL pushState
+  const handleNavigatePage = (page: PageId, slug?: string) => {
+    let targetPath = PAGE_ROUTES[page] || `/${page}`;
+    if (page === 'product' && slug) {
+      targetPath = `/product/${slug}`;
+      setActiveProductSlug(slug);
+    } else if (page === 'blog' && slug) {
+      targetPath = `/blog/${slug}`;
+      setActiveBlogSlug(slug);
+    } else if (page === 'shop' && slug) {
+      targetPath = `/shop/${slug}`;
+      setActiveCategory(slug);
+    }
+
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
+
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Currently viewed product for dedicated product page
+  const selectedProduct = useMemo(() => {
+    if (activeProductSlug) {
+      return PRODUCTS.find((p) => p.slug === activeProductSlug) || PRODUCTS[0];
+    }
+    return PRODUCTS[0];
+  }, [activeProductSlug]);
 
   // Cart Handlers
   const handleAddToCart = (
@@ -231,6 +306,21 @@ export default function App() {
 
         {currentPage === 'contact' && (
           <ContactPage
+            onNavigate={handleNavigatePage}
+          />
+        )}
+
+        {currentPage === 'product' && selectedProduct && (
+          <ProductDetailPage
+            product={selectedProduct}
+            onAddToCart={handleAddToCart}
+            onNavigate={handleNavigatePage}
+          />
+        )}
+
+        {currentPage === 'blog' && (
+          <BlogPage
+            currentSlug={activeBlogSlug}
             onNavigate={handleNavigatePage}
           />
         )}

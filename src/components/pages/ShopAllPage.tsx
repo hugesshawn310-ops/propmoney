@@ -33,12 +33,12 @@ export const ShopAllPage: React.FC<ShopAllPageProps> = ({
   const [pageSearch, setPageSearch] = useState<string>('');
 
   const filterTabs = [
-    { id: 'all', label: 'All Products (25)' },
-    { id: 'AUD', label: 'Australian Dollars' },
-    { id: 'USD', label: 'US Dollars' },
-    { id: 'GBP', label: 'British Pounds' },
-    { id: 'EUR', label: 'Euro' },
-    { id: 'CAD', label: 'Canadian Dollars' },
+    { id: 'all', label: 'All Products (25)', href: '/shop' },
+    { id: 'AUD', label: 'Australian Dollars', href: '/shop/australian-dollar' },
+    { id: 'USD', label: 'US Dollars', href: '/shop/us-dollar' },
+    { id: 'GBP', label: 'British Pounds', href: '/shop/british-pound' },
+    { id: 'EUR', label: 'Euro', href: '/shop/euro' },
+    { id: 'CAD', label: 'Canadian Dollars', href: '/shop/canadian-dollar' },
   ];
 
   const filteredProducts = useMemo(() => {
@@ -103,10 +103,18 @@ export const ShopAllPage: React.FC<ShopAllPageProps> = ({
         {/* Category Filter Tabs */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
           {filterTabs.map((tab) => (
-            <button
+            <a
               key={tab.id}
-              type="button"
-              onClick={() => setSelectedCategory(tab.id)}
+              href={tab.href}
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedCategory(tab.id);
+                if (tab.id === 'all') {
+                  window.history.pushState(null, '', '/shop');
+                } else {
+                  window.history.pushState(null, '', tab.href);
+                }
+              }}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === tab.id
                   ? 'bg-amber-400 text-neutral-950 font-bold shadow-md shadow-amber-400/20'
@@ -114,7 +122,7 @@ export const ShopAllPage: React.FC<ShopAllPageProps> = ({
               }`}
             >
               {tab.label}
-            </button>
+            </a>
           ))}
         </div>
 

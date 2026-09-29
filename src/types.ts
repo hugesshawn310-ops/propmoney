@@ -10,7 +10,9 @@ export type PageId =
   | 'full-stacks'
   | 'rba-guidelines'
   | 'bulk-studio'
-  | 'studio-portal';
+  | 'studio-portal'
+  | 'blog'
+  | 'product';
 
 export type StackSize = '50' | '100' | '250' | '1000';
 
