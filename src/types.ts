@@ -3,6 +3,10 @@ export type Denomination = '5' | '10' | '20' | '50' | '100' | '200' | '500' | 'b
 export type PageId =
   | 'home'
   | 'shop'
+  | 'about'
+  | 'terms'
+  | 'privacy'
+  | 'contact'
   | 'full-stacks'
   | 'rba-guidelines'
   | 'bulk-studio'

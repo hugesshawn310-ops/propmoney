@@ -14,6 +14,10 @@ import { FullStacksPage } from './components/pages/FullStacksPage';
 import { RbaGuidelinesPage } from './components/pages/RbaGuidelinesPage';
 import { BulkStudioOrdersPage } from './components/pages/BulkStudioOrdersPage';
 import { StudioPortalPage } from './components/pages/StudioPortalPage';
+import { AboutPage } from './components/pages/AboutPage';
+import { TermsPage } from './components/pages/TermsPage';
+import { PrivacyPolicyPage } from './components/pages/PrivacyPolicyPage';
+import { ContactPage } from './components/pages/ContactPage';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function App() {
@@ -203,6 +207,30 @@ export default function App() {
 
         {currentPage === 'studio-portal' && (
           <StudioPortalPage
+            onNavigate={handleNavigatePage}
+          />
+        )}
+
+        {currentPage === 'about' && (
+          <AboutPage
+            onNavigate={handleNavigatePage}
+          />
+        )}
+
+        {currentPage === 'terms' && (
+          <TermsPage
+            onNavigate={handleNavigatePage}
+          />
+        )}
+
+        {currentPage === 'privacy' && (
+          <PrivacyPolicyPage
+            onNavigate={handleNavigatePage}
+          />
+        )}
+
+        {currentPage === 'contact' && (
+          <ContactPage
             onNavigate={handleNavigatePage}
           />
         )}

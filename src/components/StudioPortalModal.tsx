@@ -103,7 +103,9 @@ export const StudioPortalModal: React.FC<StudioPortalModalProps> = ({ isOpen, on
                   <span>Direct Production Dispatch Hotline</span>
                 </div>
                 <div className="text-xl font-bold text-amber-400">
-                  (02) 9000 8888
+                  <a href="tel:+61480812592" className="hover:underline">
+                    +61 480 812 592
+                  </a>
                 </div>
                 <p className="text-neutral-400 text-[11px]">
                   Operating Hours: Monday – Saturday: 7:00 AM – 7:00 PM AEST (Sydney Time)

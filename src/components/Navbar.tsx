@@ -42,9 +42,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navLinks: { label: string; id: PageId; badge?: string }[] = [
     { label: 'Home', id: 'home' },
     { label: 'Shop All', id: 'shop' },
-    { label: 'Full Stacks', id: 'full-stacks' },
-    { label: 'RBA Legal Guidelines', id: 'rba-guidelines' },
-    { label: 'Bulk Studio Orders', id: 'bulk-studio', badge: 'B2B' },
+    { label: 'About', id: 'about' },
+    { label: 'Terms & Conditions', id: 'terms' },
+    { label: 'Privacy Policy', id: 'privacy' },
+    { label: 'Contact Us', id: 'contact' },
   ];
 
   const handleNavClick = (id: PageId) => {
@@ -81,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Nav Links */}
-          <div className="hidden xl:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-3.5 xl:gap-5">
             {navLinks.map((link) => {
               const isActive = currentPage === link.id;
               return (
@@ -89,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   key={link.id}
                   type="button"
                   onClick={() => handleNavClick(link.id)}
-                  className={`relative text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer py-1.5 border-b-2 flex items-center gap-1.5 ${
+                  className={`relative text-[11px] xl:text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer py-1.5 border-b-2 flex items-center gap-1 whitespace-nowrap ${
                     isActive
                       ? 'text-amber-400 border-amber-400 font-bold'
                       : 'text-neutral-300 border-transparent hover:text-white hover:border-neutral-700'
@@ -215,7 +216,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden text-neutral-400 hover:text-white p-2"
+              className="lg:hidden text-neutral-400 hover:text-white p-2"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -226,7 +227,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-neutral-900 border-b border-neutral-800 px-4 pt-2 pb-6 space-y-3">
+        <div className="lg:hidden bg-neutral-900 border-b border-neutral-800 px-4 pt-2 pb-6 space-y-3">
           <div className="grid grid-cols-2 gap-2">
             {navLinks.map((link) => {
               const isActive = currentPage === link.id;

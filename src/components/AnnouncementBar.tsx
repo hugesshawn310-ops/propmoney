@@ -55,11 +55,11 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({
               <span>Studio Support</span>
             </button>
             <a
-              href="tel:+61290008888"
+              href="tel:+61480812592"
               className="hidden lg:flex items-center gap-1 text-neutral-400 hover:text-white transition-colors"
             >
               <Phone className="w-3 h-3 text-amber-400" />
-              <span>(02) 9000 8888</span>
+              <span>+61 480 812 592</span>
             </a>
           </div>
         </div>

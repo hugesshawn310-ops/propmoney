@@ -146,7 +146,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>Production Hotline: (02) 9000 8888</span>
+                <span>Production Hotline: <a href="tel:+61480812592" className="hover:text-amber-400 transition-colors">+61 480 812 592</a></span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
@@ -204,20 +204,21 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
           {/* Col 4: Legal & Studio Support */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-              RBA Guidelines & Support
+              Studio & Legal
             </h4>
             <ul className="space-y-2 text-xs">
+              <li><button type="button" onClick={(e) => handleNav(e, 'about')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">About Us</button></li>
+              <li><button type="button" onClick={(e) => handleNav(e, 'contact')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Contact Us</button></li>
+              <li><button type="button" onClick={(e) => handleNav(e, 'terms')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Terms & Conditions</button></li>
+              <li><button type="button" onClick={(e) => handleNav(e, 'privacy')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Privacy Policy</button></li>
               <li>
                 <button type="button" onClick={(e) => handleNav(e, 'rba-guidelines')} className="hover:text-amber-400 transition-colors flex items-center gap-1 text-emerald-400 font-medium cursor-pointer text-left">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>RBA Legal Guidelines</span>
                 </button>
               </li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'rba-guidelines')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Crimes (Currency) Act 1981</button></li>
               <li><button type="button" onClick={(e) => handleNav(e, 'bulk-studio')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Bulk Studio Orders & ABN Quotes</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'shop')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">4K Camera Glare Test Guide</button></li>
               <li><button type="button" onClick={(e) => handleNav(e, 'studio-portal')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">StarTrack Express Tracking</button></li>
-              <li><button type="button" onClick={(e) => handleNav(e, 'rba-guidelines')} className="hover:text-amber-400 transition-colors cursor-pointer text-left">Film Council Permit Letters</button></li>
             </ul>
           </div>
 
@@ -238,8 +239,16 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
 
         {/* Bottom Bar: Copyright & Payment Icon Placeholders */}
         <div className="mt-8 pt-6 border-t border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-[11px] font-mono text-neutral-400 text-center md:text-left">
-            © {new Date().getFullYear()} AUS PROP CASH Pty Ltd. All Rights Reserved. Australian Motion Picture Props.
+          <div className="text-[11px] font-mono text-neutral-400 text-center md:text-left flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1">
+            <span>© {new Date().getFullYear()} AUS PROP CASH Pty Ltd.</span>
+            <span>•</span>
+            <button type="button" onClick={(e) => handleNav(e, 'about')} className="hover:text-amber-400 transition-colors cursor-pointer">About</button>
+            <span>•</span>
+            <button type="button" onClick={(e) => handleNav(e, 'terms')} className="hover:text-amber-400 transition-colors cursor-pointer">Terms</button>
+            <span>•</span>
+            <button type="button" onClick={(e) => handleNav(e, 'privacy')} className="hover:text-amber-400 transition-colors cursor-pointer">Privacy</button>
+            <span>•</span>
+            <button type="button" onClick={(e) => handleNav(e, 'contact')} className="hover:text-amber-400 transition-colors cursor-pointer">Contact Us</button>
           </div>
 
           {/* Payment Method Badges as required in prompt */}
