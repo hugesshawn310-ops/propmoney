@@ -95,7 +95,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           </div>
           <h3 className="text-lg font-bold text-white font-mono">Priority Australian Dispatch</h3>
           <p className="text-xs text-neutral-400 leading-relaxed">
-            Operating from our central logistics hub in Alexandria, Sydney, we dispatch orders same-day via StarTrack Express and Australia Post, ensuring rapid overnight set arrival across Sydney, Melbourne, Brisbane, Gold Coast, and Perth.
+            Operating from our central logistics hub at 113 Parkes Road, Melbourne, Victoria, we dispatch orders same-day via StarTrack Express and Australia Post, ensuring rapid overnight set arrival across Sydney, Melbourne, Brisbane, Gold Coast, and Perth.
           </p>
         </div>
       </div>

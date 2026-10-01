@@ -127,7 +127,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                   <a href="tel:+61480812592" className="text-sm font-bold text-amber-400 hover:underline">
                     +61 480 812 592
                   </a>
-                  <div className="text-[10px] text-neutral-400 mt-0.5">Direct line to Sydney prop room</div>
+                  <div className="text-[10px] text-neutral-400 mt-0.5">Direct line to Melbourne prop room</div>
                 </div>
               </div>
 
@@ -135,8 +135,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Fulfillment & Dispatch Hub</div>
-                  <div className="text-sm font-bold text-white">Alexandria Logistics Hub</div>
-                  <div className="text-[11px] text-neutral-400">Sydney NSW 2015, Australia</div>
+                  <div className="text-sm font-bold text-white">113 Parkes Road</div>
+                  <div className="text-[11px] text-neutral-400">MELBOURNE, Victoria 3000 Australia</div>
                 </div>
               </div>
 

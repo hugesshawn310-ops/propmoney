@@ -1103,11 +1103,11 @@ export const CITY_DISPATCH_DATA: CityDispatch[] = [
   {
     city: 'Melbourne Metro',
     state: 'VIC',
-    transitExpress: 'Next Business Day Express',
-    transitStandard: '2 Business Days',
-    hub: 'Tullamarine Air Cargo Terminal',
+    transitExpress: 'Same-Day Courier / Next Business Day Express',
+    transitStandard: '1-2 Business Days',
+    hub: '113 Parkes Road Logistics Hub (Melbourne VIC 3000)',
     localStudioNote: 'Preferred partner for Docklands Studios Melbourne & independent Fitzroy music video crews.',
-    badge: 'Express Overnight',
+    badge: 'Same-Day Dispatch',
   },
   {
     city: 'Brisbane & Gold Coast',

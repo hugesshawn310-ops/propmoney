@@ -143,7 +143,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
             <div className="space-y-1.5 text-xs font-mono text-neutral-400">
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>Alexandria Logistics Hub, Sydney NSW 2015</span>
+                <span>113 Parkes Road, MELBOURNE, Victoria 3000</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
@@ -154,7 +154,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onOpenCompliance, o
                 <a href="mailto:sales@propmoneyaustralia.com.au" className="hover:text-amber-400 transition-colors">sales@propmoneyaustralia.com.au</a>
               </div>
               <div className="text-[11px] text-neutral-500 pt-1">
-                ABN: 51 824 753 190 • Registered in New South Wales
+                ABN: 51 824 753 190 • Registered in Victoria, Australia
               </div>
             </div>
           </div>

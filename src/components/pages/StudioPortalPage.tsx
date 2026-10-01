@@ -194,7 +194,7 @@ export const StudioPortalPage: React.FC<StudioPortalPageProps> = ({ onNavigate }
                 <span className="text-neutral-500 text-[10px] block">ISSUER</span>
                 <strong>AUS PROP CASH PTY LTD</strong><br />
                 ABN: 48 912 841 029<br />
-                Alexandria Fulfillment Hub, NSW 2015
+                113 Parkes Road, MELBOURNE, Victoria 3000
               </div>
               <div>
                 <span className="text-neutral-500 text-[10px] block">BILLED TO</span>
@@ -291,7 +291,7 @@ export const StudioPortalPage: React.FC<StudioPortalPageProps> = ({ onNavigate }
               <div className="w-3 h-3 rounded-full bg-neutral-700 mt-1" />
               <div>
                 <div className="text-xs font-bold text-neutral-300 font-mono">
-                  Processed at Alexandria Logistics Hub
+                  Processed at Melbourne Logistics Hub (113 Parkes Road)
                 </div>
                 <div className="text-[11px] text-neutral-500">
                   Yesterday at 05:40 PM

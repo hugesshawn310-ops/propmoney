@@ -131,7 +131,7 @@ function getBaseEmailLayout(title: string, bodyContent: string): string {
       ${bodyContent}
     </div>
     <div class="footer">
-      <p><strong>AUS PROP CASH AUSTRALIA</strong> • Alexandria Logistics Hub, Sydney NSW 2015</p>
+      <p><strong>AUS PROP CASH AUSTRALIA</strong> • 113 Parkes Road, MELBOURNE, Victoria 3000</p>
       <p>ABN: 51 824 753 190 • Crimes (Currency) Act 1981 Section 22 Compliant</p>
       <p>Official Admin & Sales: <a href="mailto:sales@propmoneyaustralia.com.au">sales@propmoneyaustralia.com.au</a></p>
     </div>

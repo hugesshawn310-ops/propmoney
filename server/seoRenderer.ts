@@ -41,10 +41,10 @@ export function resolveRouteSeo(pathname: string): RouteSeoData {
     telephone: '+61 480 812 592',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Alexandria Logistics Hub',
-      addressLocality: 'Sydney',
-      addressRegion: 'NSW',
-      postalCode: '2015',
+      streetAddress: '113 Parkes Road',
+      addressLocality: 'Melbourne',
+      addressRegion: 'Victoria',
+      postalCode: '3000',
       addressCountry: 'AU'
     },
     sameAs: []
@@ -759,8 +759,8 @@ export function resolveRouteSeo(pathname: string): RouteSeoData {
       <p class="text-xs text-neutral-400">Every bill contains permanent legal indicators and modified architectural dimensions.</p>
     </div>
     <div class="bg-neutral-900 p-6 rounded-2xl border border-neutral-800 space-y-2">
-      <h2 class="text-base font-bold text-white font-mono">Sydney Dispatch Hub</h2>
-      <p class="text-xs text-neutral-400">Same-day express courier dispatch from Alexandria to Sydney, Melbourne, Brisbane, and Perth.</p>
+      <h2 class="text-base font-bold text-white font-mono">Melbourne Dispatch Hub</h2>
+      <p class="text-xs text-neutral-400">Same-day express courier dispatch from 113 Parkes Road, Melbourne to Sydney, Melbourne, Brisbane, and Perth.</p>
     </div>
   </section>
 </main>
@@ -881,8 +881,8 @@ export function resolveRouteSeo(pathname: string): RouteSeoData {
   // 9. Contact Page: /contact
   if (cleanPath === '/contact') {
     const canonicalUrl = `${SITE_URL}/contact`;
-    const title = 'Contact Us | Sydney Dispatch & Urgent Production Desk | AUS PROP CASH';
-    const description = 'Get in touch with the AUS PROP CASH production desk. Alexandria logistics hub, phone +61 480 812 592, email sales@propmoneyaustralia.com.au.';
+    const title = 'Contact Us | Melbourne Dispatch & Urgent Production Desk | AUS PROP CASH';
+    const description = 'Get in touch with the AUS PROP CASH production desk at 113 Parkes Road Melbourne, Victoria 3000. Phone +61 480 812 592, email sales@propmoneyaustralia.com.au.';
 
     const contactSchema = {
       '@context': 'https://schema.org',
@@ -920,7 +920,7 @@ export function resolveRouteSeo(pathname: string): RouteSeoData {
       <h2 class="text-sm font-bold text-white uppercase tracking-wider">Direct Communications</h2>
       <div><strong>Email:</strong> <a href="mailto:sales@propmoneyaustralia.com.au" class="text-amber-400 hover:underline">sales@propmoneyaustralia.com.au</a></div>
       <div><strong>Emergency Hotline:</strong> <a href="tel:+61480812592" class="text-amber-400 hover:underline">+61 480 812 592</a></div>
-      <div><strong>Dispatch Hub:</strong> Alexandria Logistics Hub, Sydney NSW 2015</div>
+      <div><strong>Dispatch Hub:</strong> 113 Parkes Road, MELBOURNE, Victoria 3000</div>
       <div><strong>Hours:</strong> Mon – Sat: 7:00 AM – 7:00 PM AEST</div>
     </div>
     <div class="bg-neutral-900 p-6 rounded-2xl border border-neutral-800 space-y-3 text-xs text-neutral-300">
@@ -1166,10 +1166,10 @@ export function resolveRouteSeo(pathname: string): RouteSeoData {
           priceRange: '$$',
           address: {
             '@type': 'PostalAddress',
-            streetAddress: 'Alexandria Logistics Hub',
-            addressLocality: 'Sydney',
-            addressRegion: 'NSW',
-            postalCode: '2015',
+            streetAddress: '113 Parkes Road',
+            addressLocality: 'Melbourne',
+            addressRegion: 'Victoria',
+            postalCode: '3000',
             addressCountry: 'AU'
           }
         },

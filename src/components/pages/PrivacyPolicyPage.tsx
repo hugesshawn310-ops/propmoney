@@ -166,7 +166,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
           <div className="pt-1 text-xs font-mono text-neutral-300">
             Privacy Officer • AUS PROP CASH Pty Ltd<br />
             Email: <a href="mailto:sales@propmoneyaustralia.com.au" className="text-amber-400 font-bold hover:underline">sales@propmoneyaustralia.com.au</a><br />
-            Location: Alexandria Logistics Hub, Sydney NSW 2015 Australia
+            Location: 113 Parkes Road MELBOURNE, Victoria 3000 Australia
           </div>
         </section>
 
